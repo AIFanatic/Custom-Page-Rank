@@ -13,13 +13,13 @@ const DEFAULT_PIPELINES = `[
     {
         "name": "sentiment",
         "params": {
-            "split_phrases": true,
+            "split_phrases": false,
             "split_phrases_threshold": 0.05
         }
     }
 ]`
 const DEFAULT_SCORER = `function scorer(url, pipelines) {
-    var scores = {
+	var scores = {
 		"wordcounter": 0,
 		"sentiment": 0
 	};
@@ -29,7 +29,7 @@ const DEFAULT_SCORER = `function scorer(url, pipelines) {
 			const words = pipeline["response"];
 			const wordsSum = words.reduce((a, b) => +a + +b["count"], 0);
 
-			if (wordsSum > 5) {
+			if (wordsSum > 3) {
 				scores["wordcounter"] = -1;
 			}
 		}
@@ -45,21 +45,29 @@ const DEFAULT_SCORER = `function scorer(url, pipelines) {
 	score = (scores["wordcounter"] + scores["sentiment"]) / 2;
 	
 	// Debug
-    console.log("Analysed", url, scores["wordcounter"], scores["sentiment"], score)
+	console.log("Analysed", scores["wordcounter"], scores["sentiment"], score)
 
-    return score;
+	return score;
 }`
+
 const DEFAULT_DECORATOR = `function decorator(link, score) {
-	if (score < 0) {
+	const threshold = 0.05;
+	if (score < -threshold) {
 		link.style.color = "rgb(128,0,0)";
 		link.style.backgroundColor = "rgba(128,0,0, 0.15)";
 	}
-	else {
+	else if (score > threshold) {
 		link.style.color = "rgb(0,128,0)";
 		link.style.backgroundColor = "rgba(0,128,0, 0.15)";
 	}
+	else {
+		link.style.color = "rgb(0,0,128)";
+		link.style.backgroundColor = "rgba(0,0,128, 0.15)";
+	}
+
+    link.title = "Score: " + score
 }`
-const DEFAULT_CONFIG = `{"number_of_links_to_analyse": 5}`
+const DEFAULT_CONFIG = `{"number_of_links_to_analyse": 10}`
 
 function getLinksWithHref(links) {
 	var linksWithHref = []
@@ -220,54 +228,7 @@ async function runWithLinks(links) {
 			pipelinesResponse = response["message"]["pipelines"];
 			processAPIResponse(scorer, decorator, link, url, pipelinesResponse);
 		}
-		
-		// .then(function (response) {
-		// 	if (response.ok) {
-		// 		return response.json();
-		// 	}
-		// 	return Promise.reject(response);
-		// }).then(function (data) {
-		// 	if (data["status"] == "ok") {
-		// 		pipelinesResponse = data["message"]["pipelines"];
-		// 		processAPIResponse(scorer, decorator, link, url, pipelinesResponse);
-		// 	}
-		// }).catch(function (error) {
-		// 	console.warn(error);
-		// }).finally(function () {
-		// });
 	}
-
-	// getConfig(function(config) {
-	// 	getPipelines(function(pipelines) {
-	// 		getScorer(function(scorer) {
-	// 			getDecorator(function(decorator) {
-	// 				// Run
-	// 				links = links.slice(0, config["number_of_links_to_analyse"]);
-
-	// 				for(const link of links) {
-	// 					const url = link.href;
-	// 					link.classList.add("analysing-link");
-
-	// 					remoteAnalyseUrl(url, pipelines)
-	// 					.then(function (response) {
-	// 						if (response.ok) {
-	// 							return response.json();
-	// 						}
-	// 						return Promise.reject(response);
-	// 					}).then(function (data) {
-	// 						if (data["status"] == "ok") {
-	// 							pipelinesResponse = data["message"]["pipelines"];
-	// 							processAPIResponse(scorer, decorator, link, url, pipelinesResponse);
-	// 						}
-	// 					}).catch(function (error) {
-	// 						console.warn(error);
-	// 					}).finally(function () {
-	// 					});
-	// 				}
-	// 			})
-	// 		})
-	// 	})
-	// })
 }
 
 var queue = {};
