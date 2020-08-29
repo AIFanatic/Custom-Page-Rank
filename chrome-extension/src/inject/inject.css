@@ -1,0 +1,11 @@
+.analysing-link {
+    animation-name: example;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+  
+@keyframes example {
+    0%   {background-color:transparent;}
+    50%  {background-color: #f1c40f80;}
+    100%  {background-color:transparent;}
+}

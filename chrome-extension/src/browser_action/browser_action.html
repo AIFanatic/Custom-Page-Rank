@@ -1,0 +1,43 @@
+<!doctype html>
+<head>
+	<link type="text/css" rel="stylesheet" href="./css/style.css"/>
+
+    <link rel="stylesheet" href="./vendor/prism/css/prism.css">
+    <link rel="stylesheet" href="./vendor/prism/css/prism-live.css">
+</head>
+<body>
+	<div class="wrapper">
+		<ul class="tabs clearfix" data-tabgroup="first-tab-group">
+			<li><a class="active" href="#tab1">Pipelines</a></li>
+			<li><a href="#tab2">Scorer</a></li>
+			<li><a href="#tab3">Decorator</a></li>
+			<li><a href="#tab4">Config</a></li>
+		</ul>
+		<section id="first-tab-group" class="tabgroup">
+			<div id="tab1">
+				<textarea id="pipelines-text" class="prism-live language-javascript" style="--max-height: 20em;"></textarea>
+			</div>
+			<div id="tab2">
+				<textarea id="scorer-text" class="prism-live language-javascript" style="--max-height: 20em"></textarea>
+			</div>
+			<div id="tab3">
+				<textarea id="decorator-text" class="prism-live language-javascript" style="--max-height: 20em"></textarea>
+			</div>
+			<div id="tab4">
+				<textarea id="config-text" class="prism-live language-javascript" style="--max-height: 20em"></textarea>
+			</div>
+		</section>
+	</div>
+
+	<div class="action-area">
+		<button id="save-button">SAVE</button>
+	</div>
+
+	<script src="./vendor/jquery.min.js"></script>
+
+	<script src="./vendor/prism/js/bliss.shy.min.js"></script>
+	<script src="./vendor/prism/js/prism.js"></script>
+	<script src="./vendor/prism/js/prism-live.js?load=javascript"></script>
+
+	<script src="./js/script.js"></script>
+</body>

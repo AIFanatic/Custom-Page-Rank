@@ -1,0 +1,1 @@
+curl "http://localhost:5002/api/v1/pipelines/wordcounter" -H "Content-Type:application/json" -X POST -d @analysis_request_data.txt

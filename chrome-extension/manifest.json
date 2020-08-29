@@ -1,0 +1,43 @@
+{
+  "name": "Custom PageRank",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "Create and classify links according to your own criteria",
+  "homepage_url": "https://github.com/AIFanatic/Custom-Page-Rank",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "default_locale": "en",
+  "browser_action": {
+    "default_icon": "icons/icon19.png",
+    "default_title": "Custom PageRank - Browser action",
+    "default_popup": "src/browser_action/browser_action.html"
+  },
+  "content_scripts": [
+    {
+      "run_at": "document_end",
+      "matches": [
+        "https://www.google.com/*",
+        "https://news.ycombinator.com/*",
+        "https://www.reddit.com/*"
+      ],
+      "js": ["src/inject/inject.js"],
+      "css" : ["src/inject/inject.css"]
+    }
+  ],
+  "background": { 
+    "page": "src/background/background.html",
+    "persistent": true
+  },
+  "permissions": [
+    "<all_urls>",
+    "storage",
+    "tabs",
+    "contextMenus",
+    "webRequest",
+    "webRequestBlocking"
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+}

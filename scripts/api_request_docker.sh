@@ -1,0 +1,1 @@
+curl "http://localhost:5000/api/v1/analyser" -H "Content-Type:application/json" -X POST -d '{"url":"https://www.google.com/search?q=random+topic&oq=random&aqs=chrome.0.69i59j69i57j69i60l6.832j0j4&sourceid=chrome&ie=UTF-8","pipelines":{"wordcounter":["random topic","topic","president","<script","<link","<style","<img"]}}'

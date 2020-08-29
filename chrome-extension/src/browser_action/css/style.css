@@ -1,0 +1,66 @@
+body {
+  margin: 0;
+  width: 500px;
+  font-family: sans-serif;
+}
+
+h1 {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+}
+h1 + p {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 16px;
+}
+
+.tabs {
+  list-style-type: none;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.tabs li {
+  float: left;
+  width: 25%;
+}
+.tabs a {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #888;
+  padding: 20px 0;
+  border-bottom: 2px solid #888;
+  background: #f7f7f7;
+}
+.tabs a:hover,
+.tabs a.active {
+  background: #ddd;
+}
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+#save-button {
+  background-color: #3498db;
+  width: 100%;
+  border: none;
+  padding: 20px;
+  cursor: pointer;
+  color: white;
+}
+
+#save-button:hover {
+  opacity: 0.8;
+}
+
+pre {
+  min-height: 10em !important;
+}

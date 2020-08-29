@@ -1,0 +1,30 @@
+version: '3'
+services:    
+    pipeline-wordcounter:
+        build: ./pipelines/wordcounter
+
+    pipeline-sentiment:
+        build: ./pipelines/sentiment
+    
+    selenium:
+        image: selenium/standalone-chrome:4.0.0-alpha-6-20200730
+        volumes:
+            - /dev/shm:/dev/shm
+        ports:
+            - 4444:4444
+        environment:
+            - START_XVFB=false
+
+    scraper:
+        build: ./scraper
+        links:
+            - selenium
+
+    api:
+        build: ./api
+        links:
+            - pipeline-wordcounter
+            - pipeline-sentiment
+            - scraper
+        ports:
+            - 5000:5000
